@@ -1,0 +1,18 @@
+.custom {
+	background-color: powderblue;
+}
+
+.ui-datascroller-content {
+	min-height: 145px;
+}
+
+.ui-g-4 {
+	border-style: solid;
+	border-width: 1px;
+}
+
+.ui-g-8 {
+	border-style: solid;
+	border-width: 1px;
+}
+

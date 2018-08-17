@@ -1,10 +1,13 @@
 <h2>DataScroller Demo</h2>
-<div>
-	<p-dataScroller [value]="mockData" [inline]="true" [rows]="10">
-		<p-header>List of useless data:</p-header>
-		<p-footer>Wow, much useless.</p-footer>
-		<ng-template let-mockData pTemplate="item">
-			<span>{{mockData.id}}</span > {{mockData.name}}
-		</ng-template>
-	</p-dataScroller>
-</div>
+<p-dataScroller [value]="mockData" [rows]="10" [inline]="true" scrollHeight="200px">
+	<p-header>List of useless data:</p-header>
+	<p-footer>Wow, much useless.</p-footer>
+	<ng-template let-mockData pTemplate="item">
+		<div class="ui-g custom">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-g-4">{{mockData.id}}</div>
+				<div class="ui-g-8">{{mockData.name}}</div>
+			</div>
+		</div>
+	</ng-template>
+</p-dataScroller>
