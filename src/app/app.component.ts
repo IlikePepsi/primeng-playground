@@ -9,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PrimeNG Playground';
+
+	private filterString: string = "";
+
+	handleListFilteredEvent(event) {
+		this.filterString = event;
+	}
 }
+

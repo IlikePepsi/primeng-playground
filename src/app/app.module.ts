@@ -4,8 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-//import { DataScrollerModule } from 'primeng/datascroller';
 import { DataScrollerDemoModule } from './data-scroller-demo/data-scroller-demo.module';
+import { FilterWidgetModule } from './filter-widget/filter-widget.module';
 
 import { MessagesModule } from './messages/messages.module';
 
@@ -20,8 +20,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
 		BrowserAnimationsModule,
-		//DataScrollerModule,
 		DataScrollerDemoModule,
+		FilterWidgetModule,
 		MessagesModule,
 		HttpClientModule,
 		HttpClientInMemoryWebApiModule.forRoot(

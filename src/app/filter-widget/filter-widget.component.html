@@ -1,0 +1,7 @@
+<h2>Filter-Widget</h2>
+<!--<p-autoComplete [(ngModel)]="filterString" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>-->
+<div>
+		<input type="text" pInputText [(ngModel)]="filterString" (keyup)="handleKeyUpEvent($event)" placeHolder="Name"/>
+		<button pButton type="button" class="ui-button-raised ui-button-info" (click)="handleClickEvent()">Submit</button>
+</div>
+

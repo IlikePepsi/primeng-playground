@@ -1,5 +1,6 @@
 <h2>DataScroller Demo</h2>
-<p-dataScroller [value]="mockData" [rows]="10" [inline]="true" scrollHeight="200px">
+<p-dataScroller #itemList [value]="mockData" [rows]="pageSize" [totalRecords]="totalRecords" [inline]="true" scrollHeight="500px" (onLazyLoad)="loadData($event)" [lazy]="true">
+<!--<p-dataScroller [value]="mockData" [rows]="pageSize" (onLazyLoad)="loadData($event)" [lazy]="true">-->
 	<p-header>List of useless data:</p-header>
 	<p-footer>Wow, much useless.</p-footer>
 	<ng-template let-mockData pTemplate="item">
