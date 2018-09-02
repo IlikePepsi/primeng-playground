@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
 import { FilterWidgetComponent } from './filter-widget.component';
+import { FilterWidgetService } from './filter-widget.service';
 
 @NgModule({
   imports: [

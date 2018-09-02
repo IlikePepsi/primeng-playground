@@ -1,8 +1,10 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { DataScroller } from 'primeng/primeng';
 
 import { MessageService } from '../messages/message.service';
 import { MockDataService } from '../mock-data.service';
+import { FilterWidgetService } from '../filter-widget/filter-widget.service';
 
 import { MockData } from '../mock-data'
 
@@ -13,17 +15,7 @@ import { MockData } from '../mock-data'
 })
 export class DataScrollerDemoComponent {
 
-	private _filterString: string;
-	private _loadedItems: number;
 	mockData: MockData[];
-
-	@Input() set filterString(value: string) {
-		this._filterString = value;
-		this._loadedItems = 0;
-		this.mockData = [];
-		this.dataScroller.reset();
-		this.dataScroller.onLazyLoad.emit({"first": 0, "rows":25});
-	}
 
 	@ViewChild('itemList') dataScroller: DataScroller;
 
@@ -32,29 +24,29 @@ export class DataScrollerDemoComponent {
 
   constructor(
 		private messageService: MessageService,
-		private mockDataService: MockDataService) { }
+		private mockDataService: MockDataService,
+		private filterWidgetService: FilterWidgetService) {
+		// fill mockData array with initial data
+		this.mockDataService.getData().subscribe(mockData => {
+			this.mockData = mockData;
+			this.totalRecords = mockData.length;
+		})
+	}
 
-	loadData(event) {
-		if(this._loadedItems === event.first) {
+	ngOnInit() {
+		// regsiter event handler callback functions
+		this.filterWidgetService.filterWidgetEvent$.subscribe(filterString => {
 			this.mockDataService.getData().toPromise().then(mockData => {
 				let filteredArray = new Array<MockData>();
-				if(this._filterString) {
-					filteredArray = mockData.filter(item => item.name.match(this._filterString));
+				if(filterString != "") {
+					filteredArray = mockData.filter(m => m.name.match(filterString));
+				} else {
+					filteredArray = [ ...mockData ];
 				}
-				else {
-					filteredArray = mockData;
-				}
-				if(this.mockData.length < filteredArray.length) {
-					let newArray = filteredArray.slice(event.first, event.first + event.rows);
-					for(let i = 0; i < newArray.length; i++) {
-						this.mockData.push(newArray[i]);
-					}
-				}
+				this.mockData = filteredArray;
 				this.totalRecords = filteredArray.length;
-				this.messageService.add(`Data loaded between ${event.first} and ${event.first + event.rows}. TotalRecords: ${this.totalRecords}`);
-			});
-			this._loadedItems += event.rows;
-		}
+			})
+		})
 	}
 }
 

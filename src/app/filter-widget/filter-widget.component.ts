@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+import { FilterWidgetService } from './filter-widget.service';
 //import { MockDataService } from '../mock-data.service';
 
 @Component({
@@ -9,31 +10,21 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class FilterWidgetComponent {
 
-	filterString: string;
-	results: string[];
+	filterString: string = "";
 
-  //constructor(private mockDataService: MockDataService) { }
-  constructor() { }
+  constructor(private filterWidgetService: FilterWidgetService) { }
 
-	//@Output() listFilteredEvent = new EventEmitter<string[]>();
-	@Output() listFilteredEvent = new EventEmitter<string>();
-
-	//search(event) {
-	//	this.mockDataService.getData().toPromise().then(data => {
-	//		this.results = data
-	//			.filter(item => item.name.match(event.query))
-	//			.map(item => item.name);
-	//	});
-	//	this.listFilteredEvent.emit(this.results);
-	//}
+	//@Output() listFilteredEvent = new EventEmitter<string>();
 
 	handleKeyUpEvent(event) {
 		if(event.key === "Enter")
-			this.listFilteredEvent.emit(this.filterString);
+			//this.listFilteredEvent.emit(this.filterString);
+			this.filterWidgetService.push(this.filterString);
 	}
 
 	handleClickEvent() {
-		this.listFilteredEvent.emit(this.filterString);
+		//this.listFilteredEvent.emit(this.filterString);
+		this.filterWidgetService.push(this.filterString);
 	}
 }
 
